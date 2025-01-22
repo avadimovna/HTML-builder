@@ -26,13 +26,17 @@ rl.on('line', (input) => {
   }
 });
 
-process.on('SIGINT', () => {
-  console.log('\nGoodbye! Thank you for using the program!');
-  rl.close();
-  writeStream.end();
-  process.exit();
+rl.on('SIGINT', () => {
+  closeProgram();
 });
 
 writeStream.on('error', (error) => {
   console.error('An error occurred while writing to the file:', error.message);
 });
+
+function closeProgram() {
+  console.log('\nGoodbye! Thank you for using the program!');
+  rl.close();
+  writeStream.end();
+  process.exit();
+}
